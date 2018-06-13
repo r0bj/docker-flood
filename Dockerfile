@@ -7,18 +7,13 @@ RUN wget -qO /usr/bin/confd https://github.com/kelseyhightower/confd/releases/do
 COPY config.js.toml /etc/confd/conf.d/
 COPY config.js.tmpl /etc/confd/templates/
 
-RUN apk add --no-cache nodejs
+RUN apk add --no-cache bash nodejs su-exec
 
-RUN mkdir /flood && cd /flood && wget -qO- https://github.com/jfurrow/flood/archive/v${FLOOD_VER}.tar.gz | tar xz --strip 1 \
-  && cp config.template.js config.js \
-  && sed -i "s/floodServerHost: '127.0.0.1'/floodServerHost: '0.0.0.0'/" /flood/config.js \
-  && npm install --production \
-  && chown -R nobody:nogroup /flood
+RUN mkdir /flood && cd /flood && wget -qO- https://github.com/jfurrow/flood/archive/v${FLOOD_VER}.tar.gz | tar xz --strip 1 && npm install --production
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
-USER nobody
 WORKDIR /flood
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
