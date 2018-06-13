@@ -1,0 +1,6 @@
+[template]
+src = "config.js.tmpl"
+dest = "/flood/config.js"
+keys = [
+    "/rtorrent/host"
+]
