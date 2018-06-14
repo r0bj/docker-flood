@@ -7,7 +7,7 @@ RUN wget -qO /usr/bin/confd https://github.com/kelseyhightower/confd/releases/do
 COPY config.js.toml /etc/confd/conf.d/
 COPY config.js.tmpl /etc/confd/templates/
 
-RUN apk add --no-cache bash nodejs su-exec
+RUN apk add --no-cache bash nodejs su-exec mediainfo
 
 RUN mkdir /flood && cd /flood && wget -qO- https://github.com/jfurrow/flood/archive/v${FLOOD_VER}.tar.gz | tar xz --strip 1 && npm install --production
 
