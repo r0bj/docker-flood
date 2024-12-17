@@ -1,4 +1,4 @@
-FROM jesec/flood:4.8.4
+FROM jesec/flood:4.8.5
 
 USER root
 
